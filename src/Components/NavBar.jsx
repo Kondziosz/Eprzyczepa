@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './NavBar.css';
 import logo from '../images/Logo.png';
 
@@ -26,7 +26,7 @@ function NavBar() {
     const section = document.getElementById(id);
     if (section) {
       if (id === 'oferta') {
-        const yOffset = -90; 
+        const yOffset = -90;
         const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: y, behavior: 'smooth' });
       } else {

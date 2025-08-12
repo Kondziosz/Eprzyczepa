@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import './Karty.css';
@@ -96,7 +96,7 @@ function Karty() {
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
-                            
+
                             <div className="navigation-container">
                                 <div className="arrow arrow-left" onClick={() => swiperRefs.current[idx]?.slidePrev()}></div>
                                 <div className="arrow arrow-right" onClick={() => swiperRefs.current[idx]?.slideNext()}></div>

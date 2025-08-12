@@ -1,4 +1,3 @@
-import React from 'react'
 import './Karty.css';
 import tools from '../images/tools.png'
 

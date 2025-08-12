@@ -1,4 +1,3 @@
-import React from 'react';
 import './Kontakt.css';
 
 function Kontakt() {
@@ -10,15 +9,15 @@ function Kontakt() {
           <h2>Skontaktuj się z nami!</h2>
           <div className="contact-details">
             <div className="contact-item">
-              <img src={`${process.env.PUBLIC_URL}/images/Loc-r.png`} alt="Location Icon" />
+              <img src="/images/Loc-r.png" alt="Location Icon" />
               <p><strong>Adres:</strong> Albatros 5,5, Chalupy</p>
             </div>
             <div className="contact-item">
-              <img src={`${process.env.PUBLIC_URL}/images/Mail-b.png`} alt="Email Icon" />
+              <img src="/images/Mail-b.png" alt="Email Icon" />
               <p><strong>Email:</strong> Starki@poczta.fm</p>
             </div>
             <div className="contact-item">
-              <img src={`${process.env.PUBLIC_URL}/images/Phone-g.png`} alt="Phone Icon" />
+              <img src="/images/Phone-g.png" alt="Phone Icon" />
               <p><strong>Telefon:</strong> +48 602 156 630</p>
             </div>
           </div>

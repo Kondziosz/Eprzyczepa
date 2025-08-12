@@ -1,4 +1,3 @@
-import React from 'react'
 import './Front.css'
 
 function Front() {

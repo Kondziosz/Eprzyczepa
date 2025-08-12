@@ -1,4 +1,3 @@
-import React from 'react'
 import "./Przyczepy.css";
 
 
@@ -34,13 +33,13 @@ function Przyczepy() {
             </div>
             <div className="about2-image">
                 <img
-                src={`${process.env.PUBLIC_URL}/images/przyczepy.jpeg`}
+                src="/images/przyczepy.jpeg"
                 alt="Przyczepy Kempingowe"
                 />
             </div>
             </div>
 
-                
+
       </div>
     </div>
   )

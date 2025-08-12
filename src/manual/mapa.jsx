@@ -1,4 +1,3 @@
-import React from 'react'
 import './mapa.css'
 
 function Mapa() {

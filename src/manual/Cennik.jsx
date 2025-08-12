@@ -1,4 +1,3 @@
-import React from 'react'
 import './Cennik.css';
 
 
@@ -8,10 +7,8 @@ function Cennik() {
       <div className='cennik-container'>
         <h1 className='header'>Cennik</h1>
         <div className='line'></div>
-        <img src={`${process.env.PUBLIC_URL}/images/Cennik.jpg`} class='cennik-background' alt='Cennik'></img>
+        <img src="/images/Cennik.jpg" className='cennik-background' alt='Cennik'></img>
         <div className='line'></div>
-        
-
       </div>
     </div>
   )
