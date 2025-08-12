@@ -1,56 +1,50 @@
 import js from "@eslint/js";
 import globals from "globals";
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
-import unusedImports from "eslint-plugin-unused-imports";
-import prettier from "eslint-config-prettier";
+import pluginReact from "eslint-plugin-react";
+import pluginPrettier from "eslint-plugin-prettier";
+import prettierConfig from "eslint-config-prettier";
+import { defineConfig } from "eslint/config";
+import parserBabel from "@babel/eslint-parser";
 
-export default [
-  // Ignore build artifacts and dependencies
-  { ignores: ["dist/**", "node_modules/**"] },
-
-  // Core JS recommended rules
-  js.configs.recommended,
-
-  // React recommended (flat) rules
-  react.configs.flat.recommended,
-
-  // Project-specific settings and extra rules
+export default defineConfig([
   {
-    files: ["**/*.{js,jsx}"],
+    files: ["**/*.{js,mjs,cjs,jsx}"],
+
     languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
-      globals: { ...globals.browser, ...globals.node },
-      parserOptions: { ecmaFeatures: { jsx: true } },
+      parser: parserBabel,
+      parserOptions: {
+        requireConfigFile: false,
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+        babelOptions: {
+          presets: ["@babel/preset-react", "@babel/preset-env"],
+        },
+      },
+      globals: globals.browser,
     },
-    settings: { react: { version: "detect" } },
-    plugins: { "react-hooks": reactHooks, "unused-imports": unusedImports },
+
+    plugins: {
+      js,
+      react: pluginReact,
+      prettier: pluginPrettier,
+    },
+
+    settings: {
+      react: { version: "detect" },
+    },
+
     rules: {
-      // React 17+/Vite doesn't need React in scope; ignore the unused default import
+      // core ESLint rules
+      ...js.configs.recommended.rules,
+      // React plugin rules
+      ...pluginReact.configs.flat.recommended.rules,
+      // formatting via Prettier plugin
+      ...prettierConfig.rules, // disables conflicting ESLint rules
+      "prettier/prettier": "error",
+      "brace-style": ["error", "allman"],
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
-
-      // Prefer plugin to catch/auto-fix unused imports
-      "no-unused-vars": "off",
-      "unused-imports/no-unused-imports": "warn",
-      "unused-imports/no-unused-vars": [
-        "warn",
-        { vars: "all", varsIgnorePattern: "^React$", args: "none", ignoreRestSiblings: true }
-      ],
-
-      // React Hooks rules
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-
-      // Relax rule that complains about quotes/apostrophes in JSX text
-      "react/no-unescaped-entities": "off",
-
-      // Example style rule
-      "brace-style": ["error", "allman"],
     },
   },
-
-  // Disable rules conflicting with Prettier formatting
-  prettier,
-];
+]);

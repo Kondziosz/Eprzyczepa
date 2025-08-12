@@ -1,4 +1,5 @@
-.onas {
+.onas
+{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7,30 +8,33 @@
   flex-direction: column;
 }
 
-.about-container {
+.about-container
+{
   display: flex;
   flex-direction: column;
   width: 95%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: rgb(251, 245, 236); 
+  background-color: rgb(251, 245, 236);
 }
 
-.section-1 {
+.section-1
+{
   display: flex;
 }
 
-
-.about-text {
+.about-text
+{
   background-color: rgb(251, 245, 236);
   text-align: left;
 }
 
-
-.przyczepy-info {
+.przyczepy-info
+{
   margin-top: 50px;
 }
 
-.about-text {
+.about-text
+{
   max-width: 600px;
   margin: auto;
   font-size: 1rem;
@@ -39,70 +43,87 @@
   font-weight: 200;
 }
 
-.about-text h2 {
+.about-text h2
+{
   font-size: 2rem;
   margin-bottom: 1rem;
   color: #2c3e50;
 }
 
-.about-text h3 {
+.about-text h3
+{
   margin-top: 1.5rem;
   color: #34495e;
 }
 
-.about-text p {
+.about-text p
+{
   margin-bottom: 1rem;
-
 }
-.about-image {
+
+.about-image
+{
   flex: 1;
   width: 100%;
   overflow: hidden;
-  min-height: 300px; /* Adjusted min-height for better responsiveness */
+  min-height: 300px;
+  /* Adjusted min-height for better responsiveness */
 }
 
-.about-image img {
+.about-image img
+{
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.line {
+.line
+{
   height: 1px;
   background-color: black;
   margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-  .section-1 {
-    flex-direction: column; /* Stack vertically */
+@media (max-width: 768px)
+{
+  .section-1
+  {
+    flex-direction: column;
+    /* Stack vertically */
     align-items: center;
   }
 
-  .about-text {
+  .about-text
+  {
     text-align: center;
   }
 
-  .about-text h2 {
+  .about-text h2
+  {
     font-size: 1.8rem;
   }
 
-  .about-text p {
+  .about-text p
+  {
     font-size: 1rem;
   }
 }
 
 /* Mobile */
-@media (max-width: 480px) {
-  .about-text h2 {
+@media (max-width: 480px)
+{
+  .about-text h2
+  {
     font-size: 1.5rem;
   }
 
-  .about-text p {
+  .about-text p
+  {
     font-size: 0.9rem;
   }
 
-  .about-image {
+  .about-image
+  {
     margin-top: 20px;
   }
 }

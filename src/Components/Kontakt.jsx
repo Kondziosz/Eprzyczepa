@@ -1,6 +1,7 @@
 import './Kontakt.css';
 
-function Kontakt() {
+function Kontakt() 
+{
   return (
     <div className="footer-container" id='kontakt'>
       <div className="footer-content">

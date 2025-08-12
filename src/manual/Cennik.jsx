@@ -1,7 +1,8 @@
 import './Cennik.css';
 
 
-function Cennik() {
+function Cennik() 
+{
   return (
     <div className='cennik'>
       <div className='cennik-container'>

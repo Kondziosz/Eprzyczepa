@@ -60,53 +60,54 @@ import img9_hobby from '../images/4hobby/img9.jpeg';
 import img10_hobby from '../images/4hobby/img10.jpeg';
 
 
-function Karty() {
-    const swiperRefs = useRef([]);
+function Karty() 
+{
+  const swiperRefs = useRef([]);
 
-    const wilkImages = [img1_wilk, img2_wilk, img3_wilk, img4_wilk, img5_wilk, img6_wilk, img7_wilk, img8_wilk, img9_wilk, img10_wilk, img11_wilk, img12_wilk, img13_wilk, img14_wilk];
-    const adriaImages = [img1_adria, img2_adria, img3_adria, img4_adria, img5_adria, img6_adria, img7_adria, img8_adria, img9_adria, img10_adria, img11_adria, img12_adria];
-    const tabbertImages = [img1_tabbert, img2_tabbert, img3_tabbert, img4_tabbert, img5_tabbert, img6_tabbert, img7_tabbert, img8_tabbert, img9_tabbert, img10_tabbert, img11_tabbert, img12_tabbert, img13_tabbert, img14_tabbert];
-    const hobbyImages = [img1_hobby, img2_hobby, img3_hobby, img4_hobby, img5_hobby, img6_hobby, img7_hobby, img8_hobby, img9_hobby, img10_hobby];
+  const wilkImages = [img1_wilk, img2_wilk, img3_wilk, img4_wilk, img5_wilk, img6_wilk, img7_wilk, img8_wilk, img9_wilk, img10_wilk, img11_wilk, img12_wilk, img13_wilk, img14_wilk];
+  const adriaImages = [img1_adria, img2_adria, img3_adria, img4_adria, img5_adria, img6_adria, img7_adria, img8_adria, img9_adria, img10_adria, img11_adria, img12_adria];
+  const tabbertImages = [img1_tabbert, img2_tabbert, img3_tabbert, img4_tabbert, img5_tabbert, img6_tabbert, img7_tabbert, img8_tabbert, img9_tabbert, img10_tabbert, img11_tabbert, img12_tabbert, img13_tabbert, img14_tabbert];
+  const hobbyImages = [img1_hobby, img2_hobby, img3_hobby, img4_hobby, img5_hobby, img6_hobby, img7_hobby, img8_hobby, img9_hobby, img10_hobby];
 
 
-    const campers = [
-        { id: 1, name: "Przyczepa Wilk", images: wilkImages },
-        { id: 2, name: "Przyczepa Adria", images: adriaImages },
-        { id: 3, name: "Przyczepa Tabbert", images: tabbertImages },
-        { id: 4, name: "Przyczepa Hobby", images: hobbyImages },
-    ];
+  const campers = [
+    { id: 1, name: "Przyczepa Wilk", images: wilkImages },
+    { id: 2, name: "Przyczepa Adria", images: adriaImages },
+    { id: 3, name: "Przyczepa Tabbert", images: tabbertImages },
+    { id: 4, name: "Przyczepa Hobby", images: hobbyImages },
+  ];
 
-    return (
-        <div className='karty' id='karty'>
-            <div className='container'>
-                <div className='card-container'>
-                    {campers.map((camper, idx) => (
-                        <div key={camper.id} className='card'>
-                            <h3 className='card-header'>{camper.name}</h3>
-                            <Swiper
-                                className='swiper'
-                                modules={[Navigation, Pagination]}
-                                navigation
-                                pagination
-                                onSwiper={(swiper) => swiperRefs.current[idx] = swiper}
-                            >
-                                {camper.images.map((image, index) => (
-                                    <SwiperSlide key={index}>
-                                        <img src={image} alt={camper.name} className='card-image' />
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
+  return (
+    <div className='karty' id='karty'>
+      <div className='container'>
+        <div className='card-container'>
+          {campers.map((camper, idx) => (
+            <div key={camper.id} className='card'>
+              <h3 className='card-header'>{camper.name}</h3>
+              <Swiper
+                className='swiper'
+                modules={[Navigation, Pagination]}
+                navigation
+                pagination
+                onSwiper={(swiper) => swiperRefs.current[idx] = swiper}
+              >
+                {camper.images.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <img src={image} alt={camper.name} className='card-image' />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
 
-                            <div className="navigation-container">
-                                <div className="arrow arrow-left" onClick={() => swiperRefs.current[idx]?.slidePrev()}></div>
-                                <div className="arrow arrow-right" onClick={() => swiperRefs.current[idx]?.slideNext()}></div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                </div>
+              <div className="navigation-container">
+                <div className="arrow arrow-left" onClick={() => swiperRefs.current[idx]?.slidePrev()}></div>
+                <div className="arrow arrow-right" onClick={() => swiperRefs.current[idx]?.slideNext()}></div>
+              </div>
+            </div>
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default Karty;
