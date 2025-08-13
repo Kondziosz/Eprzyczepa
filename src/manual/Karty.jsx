@@ -60,7 +60,7 @@ import img9_hobby from '../images/4hobby/img9.jpeg';
 import img10_hobby from '../images/4hobby/img10.jpeg';
 
 
-function Karty() 
+function Karty()
 {
   const swiperRefs = useRef([]);
 
@@ -98,9 +98,10 @@ function Karty()
                 ))}
               </Swiper>
 
-              <div className="navigation-container">
-                <div className="arrow arrow-left" onClick={() => swiperRefs.current[idx]?.slidePrev()}></div>
-                <div className="arrow arrow-right" onClick={() => swiperRefs.current[idx]?.slideNext()}></div>
+              <div className="navigation-container ">
+                <div className="arrow arrow-left flex items-center translate-y-[-4px] lg:translate-y-0 lg:scale-x-250 lg:ml-8" onClick={() => swiperRefs.current[idx]?.slidePrev()}></div>
+                <button className='bg-[#ff66009a] rounded-2xl shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)] px-2 lg:px-8 lg:py-3 text-center font-body leading-[0.88] text-white text-lg font-semibold textborder text-[14px] lg:text-[30px]'>Sprawdź Dostępność</button>
+                <div className="arrow arrow-right  flex items-center translate-y-[-4px] lg:translate-y-0 lg:scale-x-250 lg:mr-8" onClick={() => swiperRefs.current[idx]?.slideNext()}></div>
               </div>
             </div>
           ))}

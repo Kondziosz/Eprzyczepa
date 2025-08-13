@@ -1,4 +1,5 @@
-.karty {
+.karty
+{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,7 +8,8 @@
     text-align: center;
 }
 
-.container {
+.container
+{
     text-align: center;
     padding: 20px;
     background-color: rgb(251, 245, 236);
@@ -15,7 +17,8 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.containerl {
+.containerl
+{
     display: flex;
     flex-direction: row;
     text-align: center;
@@ -25,8 +28,8 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
-.title {
+.title
+{
     font-weight: 600;
     color: #333;
     padding: 20px;
@@ -36,16 +39,19 @@
     text-align: center;
 }
 
-.line{
+.line
+{
     height: 1px;
     background-color: black;
     margin-bottom: 20px;
-  }
-  
-.info {
-    width: 80%; /* Adjust as needed */
-    margin: 0 auto; 
-    text-align: center; 
+}
+
+.info
+{
+    width: 80%;
+    /* Adjust as needed */
+    margin: 0 auto;
+    text-align: center;
     font-size: 1.1rem;
     color: #333;
     padding-bottom: 20px;
@@ -53,25 +59,25 @@
     font-weight: 100;
 }
 
-
-.card-container {
+.card-container
+{
     display: flex;
-   flex-wrap: wrap;
-    justify-content: center; 
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     width: 90%;
     background-color: white;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-   border-radius: 20px;
-   padding-bottom: 40px;
-   margin: 0 auto;
-   padding-top: 40px;
-   z-index: 20;
+    border-radius: 20px;
+    padding-bottom: 40px;
+    margin: 0 auto;
+    padding-top: 40px;
+    z-index: 20;
     margin-top: -100px;
-   
 }
 
-.card {
+.card
+{
     background: #fff;
     padding: 20px;
     overflow: hidden;
@@ -85,8 +91,8 @@
     padding-bottom: 50px;
 }
 
-
-.card-header {
+.card-header
+{
     font-size: 2.5rem;
     font-weight: 500;
     padding: 10px;
@@ -94,67 +100,71 @@
     letter-spacing: -2px;
 }
 
-
-.swiper {
+.swiper
+{
     flex-grow: 1;
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-.card-image {
+.card-image
+{
     flex-grow: 1;
     width: 100%;
     height: 90%;
     object-fit: cover;
     max-height: 500px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    
 }
 
 /* Styling for the navigation container below the image */
-.navigation-container {
+.navigation-container
+{
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 10px;
     width: 100%;
     padding-bottom: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-    border-radius: 0 0 10px 10px ;
+    border-radius: 0 0 10px 10px;
 }
 
 /* Arrow styling */
-.arrow {
+.arrow
+{
     color: white;
-    padding: 0 15px;
+    padding: 0;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    
-
 }
 
 /* Left arrow styling */
-.arrow-left::before {
+.arrow-left::before
+{
     content: '←';
-    font-size: 30px;
+    font-size: 36px;
     color: black;
 }
 
 /* Right arrow styling */
-.arrow-right::before {
-   color: black;
+.arrow-right::before
+{
+    color: black;
     content: '→';
-    font-size: 30px;
+    font-size: 36px;
 }
 
 .section-last
-    {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        background-color: rgb(43, 43, 43);
-    }
-.serwis {
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgb(43, 43, 43);
+}
+
+.serwis
+{
     flex: 2;
     text-align: left;
     margin: 20px;
@@ -165,17 +175,20 @@
     color: #34495e;
 }
 
-.serwis h2 {
+.serwis h2
+{
     padding: 20px 0 20px 0;
     font-size: 1.4rem;
 }
 
-.serwis p {
+.serwis p
+{
     font-weight: 100;
     font-size: 1.2rem;
 }
 
-.distance {
+.distance
+{
     flex: 1;
     max-width: 400px;
     display: flex;
@@ -185,12 +198,14 @@
     width: auto;
 }
 
-.tools {
+.tools
+{
     max-height: 300px;
     margin-left: 50%;
 }
 
-.last {
+.last
+{
     color: #34495e;
     padding: 10px;
     font-size: 1.2rem;
@@ -200,41 +215,66 @@
     margin-left: 15%;
 }
 
-@media (max-width: 1200px) {
-    .card-container {
+@media (max-width: 1200px)
+{
+    .card-container
+    {
         margin-top: -50px;
     }
 }
-@media (max-width: 768px) {
-    .section-last {
+
+@media (max-width: 768px)
+{
+    .section-last
+    {
         /* On smaller screens, align vertically */
-        flex-direction: column; /* Stack content vertically */
-        align-items: center; /* Center the items vertically */
-        text-align: center; /* Ensure text is centered */
-    }
-    .containerl {
-        /* On smaller screens, align vertically */
-        flex-direction: column; /* Stack content vertically */
-        align-items: center; /* Center the items vertically */
-        text-align: center; /* Ensure text is centered */
+        flex-direction: column;
+        /* Stack content vertically */
+        align-items: center;
+        /* Center the items vertically */
+        text-align: center;
+        /* Ensure text is centered */
     }
 
-    .serwis {
-        margin-left: 20px; /* Remove the left margin on mobile */
-        padding-left: 10px; /* Remove the left padding on mobile */
-    }
-    .serwis h2 {
-        font-size: 1.2rem; 
-    }
-    .serwis p {
-        font-size: 1rem; /* Adjust font size for paragraph on mobile */
+    .containerl
+    {
+        /* On smaller screens, align vertically */
+        flex-direction: column;
+        /* Stack content vertically */
+        align-items: center;
+        /* Center the items vertically */
+        text-align: center;
+        /* Ensure text is centered */
     }
 
-    .distance img {
-        margin-top: 20px; /* Add some space between the sections */
+    .serwis
+    {
+        margin-left: 20px;
+        /* Remove the left margin on mobile */
+        padding-left: 10px;
+        /* Remove the left padding on mobile */
+    }
+
+    .serwis h2
+    {
+        font-size: 1.2rem;
+    }
+
+    .serwis p
+    {
+        font-size: 1rem;
+        /* Adjust font size for paragraph on mobile */
+    }
+
+    .distance img
+    {
+        margin-top: 20px;
+        /* Add some space between the sections */
         max-height: 200px;
     }
-    .last {
+
+    .last
+    {
         display: none;
     }
 }
