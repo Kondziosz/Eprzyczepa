@@ -4,6 +4,7 @@ import "swiper/css/pagination";
 import "./Karty.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
 
 import img1_wilk from "../images/1wilk/img1.jpeg";
 import img2_wilk from "../images/1wilk/img2.jpeg";
@@ -144,10 +145,10 @@ export const campers = [
     booked: [{ start: "2025-08-16", end: "2025-08-17" }],
   },
 ];
-function Karty() 
+function Karty()
 {
   const swiperRefs = useRef([]);
-
+  const navigate = useNavigate();
   return (
     <div className="karty" id="karty">
       <div className="container">
@@ -175,8 +176,14 @@ function Karty()
                   onClick={() => swiperRefs.current[idx]?.slidePrev()}
                 ></div>
                 <button
-                  className="bg-[#ff66009a] rounded-2xl shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)] px-2 lg:px-8 lg:py-3 text-center font-body leading-[0.88] text-white text-lg font-semibold
+                  className="bg-[#ff66009a] rounded-2xl shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)] px-2
+                 lg:px-8 lg:py-3 text-center font-body leading-[0.88] text-white text-lg font-semibold
                  textborder text-[14px] lg:text-[30px]"
+                  onClick={() =>
+                  {
+                    // also set a query param for refresh/shareability
+                    navigate(`/rezerwacja?camper=${camper.id}`, { state: { initialId: camper.id } });
+                  }}
                 >
                   Sprawdź Dostępność
                 </button>
