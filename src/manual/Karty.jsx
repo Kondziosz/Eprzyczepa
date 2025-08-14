@@ -59,23 +59,20 @@ import img8_hobby from '../images/4hobby/img8.jpeg';
 import img9_hobby from '../images/4hobby/img9.jpeg';
 import img10_hobby from '../images/4hobby/img10.jpeg';
 
+const wilkImages = [img1_wilk, img2_wilk, img3_wilk, img4_wilk, img5_wilk, img6_wilk, img7_wilk, img8_wilk, img9_wilk, img10_wilk, img11_wilk, img12_wilk, img13_wilk, img14_wilk];
+const adriaImages = [img1_adria, img2_adria, img3_adria, img4_adria, img5_adria, img6_adria, img7_adria, img8_adria, img9_adria, img10_adria, img11_adria, img12_adria];
+const tabbertImages = [img1_tabbert, img2_tabbert, img3_tabbert, img4_tabbert, img5_tabbert, img6_tabbert, img7_tabbert, img8_tabbert, img9_tabbert, img10_tabbert, img11_tabbert, img12_tabbert, img13_tabbert, img14_tabbert];
+const hobbyImages = [img1_hobby, img2_hobby, img3_hobby, img4_hobby, img5_hobby, img6_hobby, img7_hobby, img8_hobby, img9_hobby, img10_hobby];
 
+export  const campers = [
+    { id: 1, name: "Przyczepa Wilk", images: wilkImages, booked: [{ start: '2025-08-15', end: '2025-08-17' } ],},
+    { id: 2, name: "Przyczepa Adria", images: adriaImages, booked: [{ start: '2025-08-23', end: '2025-08-24' } ], },
+    { id: 3, name: "Przyczepa Tabbert", images: tabbertImages, booked: [{ start: '2025-08-19', end: '2025-08-23' } ], },
+    { id: 4, name: "Przyczepa Hobby", images: hobbyImages, booked: [{ start: '2025-08-16', end: '2025-08-17' } ], },
+  ];
 function Karty()
 {
   const swiperRefs = useRef([]);
-
-  const wilkImages = [img1_wilk, img2_wilk, img3_wilk, img4_wilk, img5_wilk, img6_wilk, img7_wilk, img8_wilk, img9_wilk, img10_wilk, img11_wilk, img12_wilk, img13_wilk, img14_wilk];
-  const adriaImages = [img1_adria, img2_adria, img3_adria, img4_adria, img5_adria, img6_adria, img7_adria, img8_adria, img9_adria, img10_adria, img11_adria, img12_adria];
-  const tabbertImages = [img1_tabbert, img2_tabbert, img3_tabbert, img4_tabbert, img5_tabbert, img6_tabbert, img7_tabbert, img8_tabbert, img9_tabbert, img10_tabbert, img11_tabbert, img12_tabbert, img13_tabbert, img14_tabbert];
-  const hobbyImages = [img1_hobby, img2_hobby, img3_hobby, img4_hobby, img5_hobby, img6_hobby, img7_hobby, img8_hobby, img9_hobby, img10_hobby];
-
-
-  const campers = [
-    { id: 1, name: "Przyczepa Wilk", images: wilkImages },
-    { id: 2, name: "Przyczepa Adria", images: adriaImages },
-    { id: 3, name: "Przyczepa Tabbert", images: tabbertImages },
-    { id: 4, name: "Przyczepa Hobby", images: hobbyImages },
-  ];
 
   return (
     <div className='karty' id='karty'>
@@ -99,9 +96,15 @@ function Karty()
               </Swiper>
 
               <div className="navigation-container ">
-                <div className="arrow arrow-left flex items-center translate-y-[-4px] lg:translate-y-0 lg:scale-x-250 lg:ml-8" onClick={() => swiperRefs.current[idx]?.slidePrev()}></div>
-                <button className='bg-[#ff66009a] rounded-2xl shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)] px-2 lg:px-8 lg:py-3 text-center font-body leading-[0.88] text-white text-lg font-semibold textborder text-[14px] lg:text-[30px]'>Sprawdź Dostępność</button>
-                <div className="arrow arrow-right  flex items-center translate-y-[-4px] lg:translate-y-0 lg:scale-x-250 lg:mr-8" onClick={() => swiperRefs.current[idx]?.slideNext()}></div>
+                <div className="arrow arrow-left flex items-center translate-y-[-4px] lg:translate-y-0 lg:scale-x-250 lg:ml-8"
+                 onClick={() => swiperRefs.current[idx]?.slidePrev()}
+                 ></div>
+                <button className='bg-[#ff66009a] rounded-2xl shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)] px-2 lg:px-8 lg:py-3 text-center font-body leading-[0.88] text-white text-lg font-semibold
+                 textborder text-[14px] lg:text-[30px]'
+                 >Sprawdź Dostępność</button>
+                <div className="arrow arrow-right  flex items-center translate-y-[-4px] lg:translate-y-0 lg:scale-x-250 lg:mr-8"
+                onClick={() => swiperRefs.current[idx]?.slideNext()}
+                ></div>
               </div>
             </div>
           ))}
