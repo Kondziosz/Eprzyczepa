@@ -11,7 +11,7 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
     const first = options[0] && options[0].id;
     return initialId != null ? [initialId] : first != null ? [first] : [];
   });
-  React.useEffect(() => 
+  React.useEffect(() =>
   {
     const targetId = initialId ?? selectedIds[0];
     if (targetId == null) return;
@@ -47,8 +47,8 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
               <label
                 className="
                   block h-full select-none rounded-xl border
-                  bg-white dark:bg-slate-900
-                  border-black/5 dark:border-white/10
+                  bg-slate-900
+                  border-white/10
                   shadow-[0_2px_8px_rgba(26,26,26,.16)]
                   px-4 py-3 transition
                 "
@@ -80,20 +80,20 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
                   <span
                     className="
                       mt-1 inline-flex size-4 shrink-0 items-center justify-center
-                      rounded-full border border-black/10 dark:border-white/20
-                      ring-1 ring-inset ring-black/5 dark:ring-white/10
+                      rounded-full border  border-white/20
+                      ring-1 ring-inset  ring-white/10
                       transition"
                     aria-hidden="true"
                   >
-                    <span className="block inner size-2 rounded-full bg-white dark:bg-slate-900 peer-checked:bg-white" />
+                    <span className="block inner size-2 rounded-full bg-slate-900 peer-checked:bg-white" />
                   </span>
 
                   <div className="min-w-0">
-                    <div className="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">
+                    <div className="truncate text-sm font-semibold text-slate-100">
                       {o.name}
                     </div>
                     {o.subtitle && (
-                      <div className="truncate text-xs text-slate-600 dark:text-slate-400">
+                      <div className="truncate text-xs text-slate-400">
                         {o.subtitle}
                       </div>
                     )}
