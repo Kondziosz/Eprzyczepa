@@ -2,6 +2,7 @@ import React from "react";
 import { campers } from "../manual/Karty.jsx";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function StayCarousel({ options = [], name = "stay", initialId, onChange })
 {
@@ -10,6 +11,13 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
     const first = options[0] && options[0].id;
     return initialId != null ? [initialId] : first != null ? [first] : [];
   });
+  React.useEffect(() => 
+  {
+    const targetId = initialId ?? selectedIds[0];
+    if (targetId == null) return;
+    const el = document.querySelector(`li[data-id="${targetId}"]`);
+    el?.scrollIntoView({ inline: "center", block: "nearest", behavior: "auto" });
+  }, []); // run once
 
   return (
     <div className="relative ">
@@ -30,6 +38,7 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
           const checked = selectedIds.includes(o.id);
           return (
             <li
+              data-id={o.id}
               key={o.id}
               role="option"
               aria-selected={checked}
@@ -129,6 +138,18 @@ function Rezerwacja()
     booked: camper.booked || [],
   }));
 
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const initialId = React.useMemo(() =>
+  {
+    const fromState = location.state && location.state.initialId;
+    if (fromState != null) return fromState;
+    const q = searchParams.get("camper");
+    if (q == null) return options[0]?.id;
+    const m = options.find(o => String(o.id) === q);
+    return m ? m.id : options[0]?.id;
+  }, [location.state, searchParams, options])
+
   const [selectedCamperIds, setSelectedCamperIds] = React.useState(
     options[0]?.id != null ? [options[0].id] : []
   );
@@ -160,16 +181,16 @@ function Rezerwacja()
   return (
     <div className="min-h-[calc(100dvh-80px)] w-full flex flex-col bg-gray-100  relative touch-none overflow-x-clip">
       <div className="mx-[21px] my-[21px] flex flex-1 flex-col bg-white  rounded-2xl p-4 shadow-lg gap-4 ">
-        <h1 className="text-[30px] pt-2 font-bold tracking-[1px] text-center">
+        <h1 className="text-[28px] pt-2 font-bold tracking-[1px] text-center">
           Rezerwacja przyczep
         </h1>
-        <p className="text-[20px leading-8 text-[rgb(0,108,228)] pt-[16px] underline">
+        <p className="text-[16px] leading-5 text-[rgb(0,108,228)] pt-[12px] underline">
           Wybierz swoją przyczepę/przyczepy i sprawdź dostępność
         </p>
         <StayCarousel
           options={options}
           name="rezerwacja"
-          initialId={options[0]?.id}
+          initialId={initialId}
           onChange={(ids) =>
           {
             console.log("Selected IDs:", ids);
@@ -215,10 +236,10 @@ function Rezerwacja()
           />
         </div>
         <Summary range={range} />
-        <button className={`m-4 p-4 ${getNights(range) > 0 ? "bg-[#ff66009a]" : "bg-gray-200 opacity-70"} rounded-2xl
+        <button className={`mt-2 mx-4 p-4 ${getNights(range) > 0 ? "bg-[#ff66009a]" : "bg-gray-200 opacity-70"} rounded-2xl
         shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)]
-        px-2 mb-6 lg:px-8 lg:py-3 text-center font-body leading-[0.88] text-white text-lg font-semibold textborder text-[14px]
-        lg:text-[30px]`}>Zarezerwuj Przyczepę!</button>
+        text-center font-body leading-[0.88] text-white text-lg font-semibold textborder text-[14px]
+        lg:text-[30px] flex justify-center`}>Zarezerwuj Przyczepę!</button>
       </div>
     </div>
   );
