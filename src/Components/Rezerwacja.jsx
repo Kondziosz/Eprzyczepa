@@ -1,20 +1,13 @@
 import React from "react";
 import { campers } from "../manual/Karty.jsx";
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
-function StayCarousel({
-  options = [],
-  name = "stay",
-  multiple = false,
-  initialId,
-  onChange,
-}) {
+function StayCarousel({ options = [], name = "stay", initialId, onChange }) 
+{
   const [selected, setSelected] = React.useState(
-    initialId || (options[0] && options[0].id)
+    initialId || (options[0] && options[0].id),
   );
-
-
 
   return (
     <div className="relative ">
@@ -30,10 +23,16 @@ function StayCarousel({
           [&::-webkit-scrollbar]:hidden
         "
       >
-        {options.map((o) => {
+        {options.map((o) => 
+        {
           const checked = selected === o.id;
           return (
-            <li key={o.id} role="option" aria-selected={checked} className="snap-start">
+            <li
+              key={o.id}
+              role="option"
+              aria-selected={checked}
+              className="snap-start"
+            >
               <label
                 className="
                   block h-full select-none rounded-xl border
@@ -50,14 +49,21 @@ function StayCarousel({
                   value={o.id}
                   className="sr-only peer"
                   checked={checked}
-                  onChange={() => {
-                                    setSelected(o.id);
-                                    onChange && onChange(o.id);
-                                    requestAnimationFrame(() => {
-                                    const el = document.activeElement?.closest("li");
-                                    el && el.scrollIntoView({ inline: "start", behavior: "smooth", block: "nearest" });
-                                   });
-                                  }}
+                  onChange={() => 
+                  {
+                    setSelected(o.id);
+                    onChange && onChange(o.id);
+                    requestAnimationFrame(() => 
+                    {
+                      const el = document.activeElement?.closest("li");
+                      el &&
+                        el.scrollIntoView({
+                          inline: "start",
+                          behavior: "smooth",
+                          block: "nearest",
+                        });
+                    });
+                  }}
                 />
 
                 <div className="flex items-start gap-3 peer-checked:[&_.inner]:bg-white">
@@ -85,7 +91,13 @@ function StayCarousel({
                         {o.subtitle}
                       </div>
                     )}
-                    {o.images && (<img src={o.images[0]} alt={o.name} className="w-full h-32 object-cover rounded-lg mt-2" />)}
+                    {o.images && (
+                      <img
+                        src={o.images[0]}
+                        alt={o.name}
+                        className="w-full h-32 object-cover rounded-lg mt-2"
+                      />
+                    )}
                     {o.meta && (
                       <div
                         className="
@@ -110,85 +122,106 @@ function StayCarousel({
   );
 }
 
-function Rezerwacja() {
-  const options = campers.map((camper,i) =>
-    ({...camper, subtitle: "dla 3 osob", meta: "Dostepna", key: camper.id,   booked: camper.booked || [],}));
-  const [selectedCamperId, setSelectedCamperId] = React.useState(options[0]?.id);
+function Rezerwacja() 
+{
+  const options = campers.map((camper, i) => ({
+    ...camper,
+    subtitle: "dla 3 osob",
+    meta: "Dostepna",
+    key: camper.id,
+    booked: camper.booked || [],
+  }));
+  const [selectedCamperId, setSelectedCamperId] = React.useState(
+    options[0]?.id,
+  );
   const [range, setRange] = React.useState(null); // null | Date | [Date, Date]
 
-  const camper = options.find(o => o.id === selectedCamperId);
+  const camper = options.find((o) => o.id === selectedCamperId);
 
   // If camper changes, clear current range to avoid invalid selection
   React.useEffect(() => setRange(null), [selectedCamperId]);
 
   // Build a fast lookup Set of booked days: "YYYY-MM-DD"
-  const bookedSet = React.useMemo(() => {
+  const bookedSet = React.useMemo(() => 
+  {
     return new Set(expandRangesToDays(camper?.booked || []));
   }, [camper]);
 
   const today = startOfDay(new Date());
 
-
-
-
-
-  return(
-  <div className="min-h-[calc(100dvh-80px)] w-full flex flex-col bg-gray-100  relative touch-none overflow-x-clip">
-    <div className="mx-[21px] my-[21px] flex flex-1 flex-col bg-white  rounded-2xl p-4 shadow-lg gap-4 ">
-      <h1 className="text-[30px] pt-2 font-bold tracking-[1px] text-center">Rezerwacja przyczep</h1>
-      <p className="text-[20px leading-8 text-[rgb(0,108,228)] pt-[16px] underline">Wybierz swoją przyczepę/przyczepy i sprawdź dostępność</p>
-      <StayCarousel
-        options={options}
-        name="rezerwacja"
-        initialId={1}
-        onChange={(id) => {console.log("Selected ID:", id); setSelectedCamperId(id)}}/>
+  return (
+    <div className="min-h-[calc(100dvh-80px)] w-full flex flex-col bg-gray-100  relative touch-none overflow-x-clip">
+      <div className="mx-[21px] my-[21px] flex flex-1 flex-col bg-white  rounded-2xl p-4 shadow-lg gap-4 ">
+        <h1 className="text-[30px] pt-2 font-bold tracking-[1px] text-center">
+          Rezerwacja przyczep
+        </h1>
+        <p className="text-[20px leading-8 text-[rgb(0,108,228)] pt-[16px] underline">
+          Wybierz swoją przyczepę/przyczepy i sprawdź dostępność
+        </p>
+        <StayCarousel
+          options={options}
+          name="rezerwacja"
+          initialId={1}
+          onChange={(id) => 
+          {
+            console.log("Selected ID:", id);
+            setSelectedCamperId(id);
+          }}
+        />
         <div className="mt-4 rounded-xl border border-black/5 overflow-hidden">
           <Calendar
             selectRange
             allowPartialRange={false}
             value={range}
-            onChange={(val) => {
-            // Only accept completed ranges; ignore single Date selections
-             if (!Array.isArray(val)) {
-               return; // keeps current state (null or previous range)
-  }
+            onChange={(val) => 
+            {
+              // Only accept completed ranges; ignore single Date selections
+              if (!Array.isArray(val)) 
+              {
+                return; // keeps current state (null or previous range)
+              }
 
-             const [a, b] = val || [];
-             if (a && b && rangeIntersectsBooked(a, b, bookedSet)) {
-               setRange(null);
-               return;
-             }
-             setRange(val); // valid [start, end]
+              const [a, b] = val || [];
+              if (a && b && rangeIntersectsBooked(a, b, bookedSet)) 
+              {
+                setRange(null);
+                return;
+              }
+              setRange(val); // valid [start, end]
             }}
             minDate={today}
             prev2Label={null}
             next2Label={null}
             // Disable booked days
-            tileDisabled={({ date, view }) => {
-              if (view !== 'month') return false;
+            tileDisabled={({ date, view }) => 
+            {
+              if (view !== "month") return false;
               return bookedSet.has(key(date));
             }}
             // Add classes to show booked days visually
-            tileClassName={({ date, view }) => {
-              if (view !== 'month') return '';
-              return bookedSet.has(key(date)) ? 'rc-booked' : '';
+            tileClassName={({ date, view }) => 
+            {
+              if (view !== "month") return "";
+              return bookedSet.has(key(date)) ? "rc-booked" : "";
             }}
           />
         </div>
-               <Summary range={range} />
+        <Summary range={range} />
+      </div>
     </div>
-  </div>)
+  );
 }
 
 export default Rezerwacja;
 
-
-function startOfDay(d) {
+function startOfDay(d) 
+{
   const x = new Date(d);
   x.setHours(0, 0, 0, 0);
   return x;
 }
-function key(d) {
+function key(d) 
+{
   const x = startOfDay(d);
   const y = x.getFullYear();
   const m = String(x.getMonth() + 1).padStart(2, "0");
@@ -196,13 +229,16 @@ function key(d) {
   return `${y}-${m}-${dd}`;
 }
 // clicked day is selected if single equals it or within [a,b]
-function isDaySelected(date, value) {
+function isDaySelected(date, value) 
+{
   if (!value) return false;
   const kd = key(date);
-  if (Array.isArray(value)) {
+  if (Array.isArray(value)) 
+  {
     const [a, b] = value;
     if (!a || !b) return false;
-    const ka = key(a), kb = key(b);
+    const ka = key(a),
+      kb = key(b);
     const lo = ka < kb ? ka : kb;
     const hi = ka < kb ? kb : ka;
     return kd >= lo && kd <= hi;
@@ -210,36 +246,43 @@ function isDaySelected(date, value) {
   return kd === key(value);
 }
 // booked: [{ start:'YYYY-MM-DD', end:'YYYY-MM-DD' }]
-function expandRangesToDays(ranges) {
+function expandRangesToDays(ranges) 
+{
   const out = [];
-  for (const { start, end } of ranges) {
+  for (const { start, end } of ranges) 
+  {
     const s = startOfDay(new Date(start));
     const e = startOfDay(new Date(end));
-    for (let d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) {
+    for (let d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) 
+    {
       out.push(key(d));
     }
   }
   return out;
 }
-function rangeIntersectsBooked(a, b, bookedSet) {
+function rangeIntersectsBooked(a, b, bookedSet) 
+{
   if (!a || !b) return false;
   const s = startOfDay(a),
     e = startOfDay(b);
-  for (let d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) {
+  for (let d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) 
+  {
     if (bookedSet.has(key(d))) return true;
   }
   return false;
 }
 
 /* Optional: a tiny summary component you already had */
-function Summary({ range }) {
-  if (!Array.isArray(range) || !range[0] || !range[1]) {
+function Summary({ range }) 
+{
+  if (!Array.isArray(range) || !range[0] || !range[1]) 
+  {
     return <div className="text-sm text-slate-500">Wybierz zakres dat…</div>;
   }
   const [a, b] = range;
   const nights = Math.max(
     0,
-    Math.round((startOfDay(b) - startOfDay(a)) / 86400000)
+    Math.round((startOfDay(b) - startOfDay(a)) / 86400000),
   );
   return (
     <div className="text-sm text-slate-700">

@@ -39,10 +39,8 @@ export default defineConfig([
       ...js.configs.recommended.rules,
       // React plugin rules
       ...pluginReact.configs.flat.recommended.rules,
-      // formatting via Prettier plugin
-      ...prettierConfig.rules, // disables conflicting ESLint rules
-      "prettier/prettier": "error",
       "brace-style": ["error", "allman"],
+      "indent": ["error", 2, { "SwitchCase": 1 }],
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
     },
