@@ -3,6 +3,7 @@ import { campers } from "../manual/Karty.jsx";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useLocation, useSearchParams } from "react-router-dom";
+import ResponsiveCalendar from "./Calendar.jsx";
 
 function StayCarousel({ options = [], name = "stay", initialId, onChange })
 {
@@ -20,17 +21,17 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
   }, []); // run once
 
   return (
-    <div className="relative ">
+    <div className="relative flex-1 flex">
       {/* scroll track */}
       <ul
         role="listbox"
         aria-label="Choose your stay"
         className="
           grid grid-flow-col auto-cols-[85%] sm:auto-cols-[280px]
-          gap-3 px-3 py-[2px]
+          gap-3 px-3 py-[3px]
           overflow-x-auto snap-x snap-mandatory scroll-smooth
           [scrollbar-width:none] [-ms-overflow-style:none]
-          [&::-webkit-scrollbar]:hidden
+          [&::-webkit-scrollbar]:hidden min-h-0
         "
       >
         {options.map((o) =>
@@ -50,7 +51,7 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
                   bg-slate-900
                   border-white/10
                   shadow-[0_2px_8px_rgba(26,26,26,.16)]
-                  px-4 py-3 transition
+                  px-4 py-[4px] transition
                 "
                 data-checked={checked || undefined}
               >
@@ -75,20 +76,20 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
                   }}
                 />
 
-                <div className="flex items-start gap-3 peer-checked:[&_.inner]:bg-white">
+                <div className="flex min-h-0 items-start gap-3 peer-checked:[&_.inner]:bg-white">
                   {/* dot indicator */}
                   <span
                     className="
                       mt-1 inline-flex size-4 shrink-0 items-center justify-center
                       rounded-full border  border-white/20
                       ring-1 ring-inset  ring-white/10
-                      transition"
+                      transition min-h-0"
                     aria-hidden="true"
                   >
                     <span className="block inner size-2 rounded-full bg-slate-900 peer-checked:bg-white" />
                   </span>
 
-                  <div className="min-w-0">
+                  <div className="min-w-0 min-h-0 flex-1 flex-col overflow-auto">
                     <div className="truncate text-sm font-semibold text-slate-100">
                       {o.name}
                     </div>
@@ -101,7 +102,7 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
                       <img
                         src={o.images[0]}
                         alt={o.name}
-                        className="w-full h-32 object-cover rounded-lg mt-2"
+                        className="h-[clamp(100px,18cqh,250px)] object-cover rounded-lg mt-2"
                       />
                     )}
                     {o.meta && (
@@ -179,67 +180,65 @@ function Rezerwacja()
   const today = startOfDay(new Date());
 
   return (
-    <div className="min-h-[calc(100dvh-80px)] w-full flex flex-col bg-gray-100  relative touch-none overflow-x-clip">
-      <div className="mx-[21px] my-[21px] flex flex-1 flex-col bg-white  rounded-2xl p-4 shadow-lg gap-4 ">
-        <h1 className="text-[28px] pt-2 font-bold tracking-[1px] text-center">
+    <div className="min-h-[calc(100dvh-80px)] h-[calc(100dvh-80px)] w-full flex flex-col bg-gray-100  relative touch-none overflow-x-clip">
+      <div className="mx-[21px] mt-[21px] mb-[8px] flex  h-full max-h-full flex-col bg-white  rounded-2xl p-4 shadow-lg gap-[12px] [container-type:size] ">
+        <h1 className="text-[25px] pt-2 font-bold tracking-[1.8px] text-center leading-4 whitespace-nowrap">
           Rezerwacja przyczep
         </h1>
-        <p className="text-[16px] leading-5 text-[rgb(0,108,228)] pt-[12px] underline">
+        <p className="text-[16px] leading-5 text-[rgb(0,108,228)] pt-2 underline">
           Wybierz swoją przyczepę/przyczepy i sprawdź dostępność
         </p>
-        <StayCarousel
-          options={options}
-          name="rezerwacja"
-          initialId={initialId}
-          onChange={(ids) =>
-          {
-            console.log("Selected IDs:", ids);
-            setSelectedCamperIds(ids); // ← array of IDs
-          }}
-        />
-        <div className="mt-4 rounded-xl border border-black/5 overflow-hidden">
-          <Calendar
+        <div className=" flex flex-col h-[clamp(190px,30cqh,250px)]">
+          <StayCarousel
+            options={options}
+            name="rezerwacja"
+            initialId={initialId}
+            onChange={(ids) =>
+            {
+              console.log("Selected IDs:", ids);
+              setSelectedCamperIds(ids); // ← array of IDs
+            }}
+          />
+        </div>
+        <div className="rounded-xl border border-black/5 overflow-hidden">
+          <ResponsiveCalendar
+            /* optional wrapper spacing */
+            className="mt-2"
+            /* calendar props */
             selectRange
             allowPartialRange={false}
             value={range}
             onChange={(val) =>
             {
-              // Only accept completed ranges; ignore single Date selections
-              if (!Array.isArray(val))
-              {
-                return; // keeps current state (null or previous range)
-              }
-
+              if (!Array.isArray(val)) return;
               const [a, b] = val || [];
               if (a && b && rangeIntersectsBooked(a, b, bookedSet))
               {
                 setRange(null);
                 return;
               }
-              setRange(val); // valid [start, end]
+              setRange(val);
             }}
             minDate={today}
             prev2Label={null}
             next2Label={null}
-            // Disable booked days
-            tileDisabled={({ date, view }) =>
-            {
-              if (view !== "month") return false;
-              return bookedSet.has(key(date));
-            }}
-            // Add classes to show booked days visually
+            tileDisabled={({ date, view }) => view === "month" && bookedSet.has(key(date))}
             tileClassName={({ date, view }) =>
-            {
-              if (view !== "month") return "";
-              return bookedSet.has(key(date)) ? "rc-booked" : "";
-            }}
+              view === "month" && bookedSet.has(key(date)) ? "rc-booked" : ""
+            }
+            /* optional: change when it becomes a sheet */
+            shortHeightQuery="(max-height: 760px)"
+            /* optional: auto-close sheet when range picked */
+            autoCloseOnRange
           />
         </div>
-        <Summary range={range} />
-        <button className={`mt-2 mx-4 p-4 ${getNights(range) > 0 ? "bg-[#ff66009a]" : "bg-gray-200 opacity-70"} rounded-2xl
+        <div className="flex flex-col gap-2 justify-between mt-auto">
+          <Summary range={range} />
+          <button className={` mx-4 p-4 py-5 ${getNights(range) > 0 ? "bg-[#ff6600]" : "bg-gray-200 opacity-70"} rounded-2xl
         shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)]
-        text-center font-body leading-[0.88] text-white text-lg font-semibold textborder text-[14px]
-        lg:text-[30px] flex justify-center`}>Zarezerwuj Przyczepę!</button>
+        text-center font-body leading-[1px] tracking-[1.8px] text-white text-lg font-semibold  text-[14px]
+        lg:text-[30px] flex justify-center mb-0.5`}>Zarezerwuj Przyczepę!</button>
+        </div>
       </div>
     </div>
   );
@@ -315,7 +314,7 @@ function Summary({ range })
 {
   if (!Array.isArray(range) || !range[0] || !range[1])
   {
-    return <div className="text-sm text-slate-500">Wybierz zakres dat…</div>;
+    return <div className="text-sm text-slate-500 mt-auto">Wybierz zakres dat…</div>;
   }
   const [a, b] = range;
   const nights = Math.max(
@@ -323,7 +322,7 @@ function Summary({ range })
     Math.round((startOfDay(b) - startOfDay(a)) / 86400000),
   );
   return (
-    <div className="text-sm text-slate-700">
+    <div className="text-sm text-slate-700 leading-4">
       Od <b>{a.toLocaleDateString()}</b> do <b>{b.toLocaleDateString()}</b> —{" "}
       <b>{nights}</b> nocy <p className="text-green-700">wybrane daty są dotępne!</p>
     </div>
