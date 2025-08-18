@@ -30,6 +30,7 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
           overflow-x-auto snap-x snap-mandatory scroll-smooth
           [scrollbar-width:none] [-ms-overflow-style:none]
           [&::-webkit-scrollbar]:hidden min-h-0
+          lg:grid-cols-2 lg:grid-rows-2 lg:gap-6
         "
       >
         {options.map((o) =>
@@ -180,66 +181,74 @@ function Rezerwacja()
   return (
     <div className="min-h-[calc(100dvh-80px)] h-[calc(100dvh-80px)] w-full flex flex-col bg-gray-100  relative touch-none overflow-x-clip
     [@media(min-width:769px)]:mt-[80px]">
-      <div className="mx-[21px] mt-[21px] mb-[8px] flex  h-full max-h-full flex-col bg-white  rounded-2xl p-4 shadow-lg gap-[12px] [container-type:size]
-      md:mx-8 md:my-8 md:gap-4">
-        <h1 className="text-[25px] pt-2 font-bold tracking-[1.8px] text-center leading-4 whitespace-nowrap
-        md:text-[36px] md:leading-8">
+      <div className="mx-[21px] mt-[21px] mb-[8px] flex  h-full max-h-full flex-col flex-1 bg-white  rounded-2xl p-4 shadow-lg gap-[12px] [container-type:size]
+      md:mx-8 md:my-8 md:gap-4
+      lg:flex-row lg:justify-center lg:items-center lg:m-[34px]">
+        <div className="flex flex-col flex-1 justify-between lg:flex-row lg:max-w-[1300px] lg:justify-center lg:gap-32 ">
+          <div className="flex flex-col">
+            <h1 className="text-[25px] pt-2 font-bold tracking-[1.8px] text-center leading-4 whitespace-nowrap
+        md:text-[36px] md:leading-8
+        lg:text-start">
           Rezerwacja przyczep
-        </h1>
-        <p className="text-[16px] leading-5 text-[rgb(0,108,228)] pt-2 underline
+            </h1>
+            <p className="text-[16px] leading-5 text-[rgb(0,108,228)] pt-4 underline
         md:text-[20px] md:leading-8">
           Wybierz swoją przyczepę/przyczepy i sprawdź dostępność
-        </p>
-        <div className=" flex flex-col h-[clamp(190px,30cqh,250px)]">
-          <StayCarousel
-            options={options}
-            name="rezerwacja"
-            initialId={initialId}
-            onChange={(ids) =>
-            {
-              console.log("Selected IDs:", ids);
-              setSelectedCamperIds(ids); // ← array of IDs
-            }}
-          />
-        </div>
-        <div className="rounded-xl overflow-hidden flex md:flex-1 justify-center [@media(min-width:760px)]:!items-center md:min-h-0 md:mt-4">
-          <ResponsiveCalendar
-            /* optional wrapper spacing */
-            className="mt-2 md:h-full"
-            /* calendar props */
-            selectRange
-            allowPartialRange={false}
-            value={range}
-            onChange={(val) =>
-            {
-              if (!Array.isArray(val)) return;
-              const [a, b] = val || [];
-              if (a && b && rangeIntersectsBooked(a, b, bookedSet))
-              {
-                setRange(null);
-                return;
-              }
-              setRange(val);
-            }}
-            minDate={today}
-            prev2Label={null}
-            next2Label={null}
-            tileDisabled={({ date, view }) => view === "month" && bookedSet.has(key(date))}
-            tileClassName={({ date, view }) =>
-              view === "month" && bookedSet.has(key(date)) ? "rc-booked" : ""
-            }
-            /* optional: change when it becomes a sheet */
-            shortHeightQuery="(max-height: 760px)"
-            /* optional: auto-close sheet when range picked */
-            autoCloseOnRange
-          />
-        </div>
-        <div className="flex flex-col gap-3 justify-between mt-auto">
-          <Summary range={range} />
-          <button className={` mx-4 p-4 py-5 ${getNights(range) > 0 ? "bg-[#ff6600]" : "bg-gray-200 opacity-70"} rounded-2xl
+            </p>
+            <div className=" flex flex-col h-[clamp(190px,30cqh,250px)] pt-4 lg:h-fit lg:w-fit">
+              <StayCarousel
+                options={options}
+                name="rezerwacja"
+                initialId={initialId}
+                onChange={(ids) =>
+                {
+                  console.log("Selected IDs:", ids);
+                  setSelectedCamperIds(ids); // ← array of IDs
+                }}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col flex-1 mt-6 lg:items-start lg:flex-none lg:!w-fit">
+            <div className="rounded-xl overflow-hidden flex [@media(min-height:750px)]:flex-1 justify-center [@media(min-height:750px)]:!items-center md:min-h-0 md:mt-4">
+              <ResponsiveCalendar
+                /* optional wrapper spacing */
+                className="mt-2l"
+                /* calendar props */
+                selectRange
+                allowPartialRange={false}
+                value={range}
+                onChange={(val) =>
+                {
+                  if (!Array.isArray(val)) return;
+                  const [a, b] = val || [];
+                  if (a && b && rangeIntersectsBooked(a, b, bookedSet))
+                  {
+                    setRange(null);
+                    return;
+                  }
+                  setRange(val);
+                }}
+                minDate={today}
+                prev2Label={null}
+                next2Label={null}
+                tileDisabled={({ date, view }) => view === "month" && bookedSet.has(key(date))}
+                tileClassName={({ date, view }) =>
+                  view === "month" && bookedSet.has(key(date)) ? "rc-booked" : ""
+                }
+                /* optional: change when it becomes a sheet */
+                shortHeightQuery="(max-height: 760px)"
+                /* optional: auto-close sheet when range picked */
+                autoCloseOnRange
+              />
+            </div>
+            <div className="flex flex-col gap-3 justify-between mt-auto lg:!max-w-[400px] lg:items-start">
+              <Summary range={range} />
+              <button className={` mx-4 p-4 py-5 ${getNights(range) > 0 ? "bg-[#ff6600]" : "bg-gray-200 opacity-70"} rounded-2xl
         shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)]
-        text-center font-body leading-[1px] tracking-[1.8px] text-white text-lg font-semibold  text-[14px]
-        lg:text-[30px] flex justify-center mb-0.5`}>Zarezerwuj Przyczepę!</button>
+        text-center textborder font-body leading-[1px] tracking-[1.8px] text-white text-lg font-semibold  text-[14px]
+        lg:text-[20px] flex justify-center mb-0.5 lg:ml-0 lg:w-[400px]`}>Zarezerwuj Przyczepę!</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

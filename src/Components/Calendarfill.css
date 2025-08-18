@@ -23,7 +23,35 @@ react-calendar
 	/* a bit smaller than 1em */
 }
 
-.react-calendar__month-view__weekdays
+@media (min-height: 1300px)
+{
+	.react-calendar__navigation
+	{
+		height: 80px;
+		font-size: 30px;
+	}
+
+	.react-calendar__month-view__weekdays
+	{
+		font-size: 20px;
+	}
+}
+
+@media (min-height: 1000px)
+{
+	.react-calendar__navigation
+	{
+		height: 50px;
+		font-size: 25px;
+	}
+
+	.react-calendar__month-view__weekdays
+	{
+		font-size: 15px;
+	}
+}
+
+| .react-calendar__month-view__weekdays
 {
 	flex: 0 0 28px;
 }

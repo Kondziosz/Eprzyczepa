@@ -62,10 +62,10 @@ export default function ResponsiveCalendar({
     // Inline mode (with internal cap + scroll container)
     return (
       <div className={`rounded-xl min-h-0 overflow-hidden ${className}`}>
-        <div className="h-full w-full overflow-auto overscroll-contain px-2">
+        <div className="h-full w-full overflow-auto overscroll-contain px-2 lg:px-0 ">
           <div className="mx-auto w-full max-w-[420px] md:max-w-[600px] md:!h-full
            ">
-            <Calendar {...calendarProps} onChange={wrappedOnChange} className="!w-full !md:h-full" tileClassName={"!h-[35px] md:!h-[50px] [@media(min-height:1100px)]:!h-[75px]"} />
+            <Calendar {...calendarProps} onChange={wrappedOnChange} className="!w-full !md:h-full lg:!max-w-[400px]" tileClassName={"!h-[35px] md:!h-[50px] [@media(min-height:1100px)]:!h-[75px] [@media(min-height:1000px)]:!text-[20px] [@media(min-height:1300px)]:!h-[95px] [@media(min-height:1300px)]:!w-[95px] [@media(min-height:1300px)]:!text-[25px]"} />
           </div>
         </div>
       </div>
