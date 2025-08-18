@@ -1,7 +1,5 @@
 import React from "react";
 import { campers } from "../manual/Karty.jsx";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import { useLocation, useSearchParams } from "react-router-dom";
 import ResponsiveCalendar from "./Calendar.jsx";
 
@@ -180,12 +178,16 @@ function Rezerwacja()
   const today = startOfDay(new Date());
 
   return (
-    <div className="min-h-[calc(100dvh-80px)] h-[calc(100dvh-80px)] w-full flex flex-col bg-gray-100  relative touch-none overflow-x-clip">
-      <div className="mx-[21px] mt-[21px] mb-[8px] flex  h-full max-h-full flex-col bg-white  rounded-2xl p-4 shadow-lg gap-[12px] [container-type:size] ">
-        <h1 className="text-[25px] pt-2 font-bold tracking-[1.8px] text-center leading-4 whitespace-nowrap">
+    <div className="min-h-[calc(100dvh-80px)] h-[calc(100dvh-80px)] w-full flex flex-col bg-gray-100  relative touch-none overflow-x-clip
+    [@media(min-width:769px)]:mt-[80px]">
+      <div className="mx-[21px] mt-[21px] mb-[8px] flex  h-full max-h-full flex-col bg-white  rounded-2xl p-4 shadow-lg gap-[12px] [container-type:size]
+      md:mx-8 md:my-8 md:gap-4">
+        <h1 className="text-[25px] pt-2 font-bold tracking-[1.8px] text-center leading-4 whitespace-nowrap
+        md:text-[36px] md:leading-8">
           Rezerwacja przyczep
         </h1>
-        <p className="text-[16px] leading-5 text-[rgb(0,108,228)] pt-2 underline">
+        <p className="text-[16px] leading-5 text-[rgb(0,108,228)] pt-2 underline
+        md:text-[20px] md:leading-8">
           Wybierz swoją przyczepę/przyczepy i sprawdź dostępność
         </p>
         <div className=" flex flex-col h-[clamp(190px,30cqh,250px)]">
@@ -200,10 +202,10 @@ function Rezerwacja()
             }}
           />
         </div>
-        <div className="rounded-xl border border-black/5 overflow-hidden">
+        <div className="rounded-xl overflow-hidden flex md:flex-1 justify-center [@media(min-width:760px)]:!items-center md:min-h-0 md:mt-4">
           <ResponsiveCalendar
             /* optional wrapper spacing */
-            className="mt-2"
+            className="mt-2 md:h-full"
             /* calendar props */
             selectRange
             allowPartialRange={false}
@@ -232,7 +234,7 @@ function Rezerwacja()
             autoCloseOnRange
           />
         </div>
-        <div className="flex flex-col gap-2 justify-between mt-auto">
+        <div className="flex flex-col gap-3 justify-between mt-auto">
           <Summary range={range} />
           <button className={` mx-4 p-4 py-5 ${getNights(range) > 0 ? "bg-[#ff6600]" : "bg-gray-200 opacity-70"} rounded-2xl
         shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)]
@@ -246,6 +248,14 @@ function Rezerwacja()
 
 export default Rezerwacja;
 
+
+
+
+
+
+
+
+/* Additional Calendar functions */
 function startOfDay(d)
 {
   const x = new Date(d);
@@ -260,7 +270,7 @@ function key(d)
   const dd = String(x.getDate()).padStart(2, "0");
   return `${y}-${m}-${dd}`;
 }
-// clicked day is selected if single equals it or within [a,b]
+// clicked day is selected if single equals it or within [a,b] -> not used
 function isDaySelected(date, value)
 {
   if (!value) return false;
@@ -309,7 +319,7 @@ function getNights(range)
   const [a, b] = range;
   return Math.max(0, Math.round((startOfDay(b) - startOfDay(a)) / 86400000));
 }
-/* Optional: a tiny summary component you already had */
+/* summary component */
 function Summary({ range })
 {
   if (!Array.isArray(range) || !range[0] || !range[1])

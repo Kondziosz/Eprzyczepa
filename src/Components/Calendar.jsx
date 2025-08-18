@@ -1,6 +1,7 @@
 import React from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import "./Calendarfill.css";
 
 function useMediaQuery(query, initial = false)
 {
@@ -20,6 +21,7 @@ function useMediaQuery(query, initial = false)
   }, [query]);
   return matches;
 }
+
 function useScrollLock(locked)
 {
   React.useEffect(() =>
@@ -59,10 +61,11 @@ export default function ResponsiveCalendar({
   {
     // Inline mode (with internal cap + scroll container)
     return (
-      <div className={`rounded-xl border border-black/5 min-h-0 overflow-hidden ${className}`}>
+      <div className={`rounded-xl min-h-0 overflow-hidden ${className}`}>
         <div className="h-full w-full overflow-auto overscroll-contain px-2">
-          <div className="mx-auto w-full max-w-[420px]">
-            <Calendar {...calendarProps} onChange={wrappedOnChange} className="w-full" />
+          <div className="mx-auto w-full max-w-[420px] md:max-w-[600px] md:!h-full
+           ">
+            <Calendar {...calendarProps} onChange={wrappedOnChange} className="!w-full !md:h-full" tileClassName={"!h-[35px] md:!h-[50px] [@media(min-height:1100px)]:!h-[75px]"} />
           </div>
         </div>
       </div>

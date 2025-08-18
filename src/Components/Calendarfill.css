@@ -1,0 +1,56 @@
+react-calendar
+{
+	height: 100% !important;
+}
+
+/* Stack internals and allow the content area to grow */
+.react-calendar__viewContainer,
+.react-calendar__month-view
+{
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+/* Fix top bars; the rest goes to the days grid */
+.react-calendar__navigation
+{
+	height: 44px;
+	/* same as default */
+	flex: 0 0 44px;
+	margin-bottom: .5rem;
+	/* a bit smaller than 1em */
+}
+
+.react-calendar__month-view__weekdays
+{
+	flex: 0 0 28px;
+}
+
+/* Make the weeks fill the remaining height evenly */
+.react-calendar__month-view__days
+{
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	grid-auto-rows: 1fr;
+	/* ← each week row = 1fr */
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+/* Tiles should stretch to the full grid cell height */
+.react-calendar__tile
+{
+	height: 50px;
+	padding: 8px 6px;
+	/* optional: smaller than default 10px */
+}
+
+/* Year/decade/century views: avoid very tall tiles */
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile
+{
+	padding: .75rem .5rem;
+}

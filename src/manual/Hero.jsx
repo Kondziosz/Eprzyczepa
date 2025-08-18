@@ -1,11 +1,11 @@
 import "./Front.css";
 import { NavLink } from "react-router-dom";
-function Front() 
+function Front()
 {
-  const scrollToSection = (id) => 
+  const scrollToSection = (id) =>
   {
     const section = document.getElementById(id);
-    if (section) 
+    if (section)
     {
       section.scrollIntoView({ behavior: "smooth" });
     }
@@ -16,10 +16,6 @@ function Front()
       <div className="cta" onClick={() => scrollToSection("karty")}>
         <a href="#">Zobacz nasze przyczepy →</a>
       </div>
-      {/* ten przekierowuje do formularza */}
-      <nav className="cta !pl-[60px]">
-        <NavLink to="/rezerwacja">Zarezerwuj już teraz</NavLink>
-      </nav>
     </section>
   );
 }
