@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { campers } from "../manual/Karty.jsx";
 import { useLocation, useSearchParams } from "react-router-dom";
 import ResponsiveCalendar from "./Calendar.jsx";
@@ -130,14 +130,19 @@ function StayCarousel({ options = [], name = "stay", initialId, onChange })
 
 function Rezerwacja()
 {
-  const options = campers.map((camper, i) => ({
-    ...camper,
-    subtitle: "dla 3 osob",
-    meta: "Dostepna",
-    key: camper.id,
-    booked: camper.booked || [],
-  }));
+  /* create a list of campers with their details useMemo to avoid rerender*/
+  const options = useMemo(() =>
+  {
+    return campers.map((camper) => ({
+      ...camper,
+      subtitle: "dla 3 osob",
+      meta: "Dostepna",
+      key: camper.id,
+      booked: camper.booked ?? [],
+    }));
+  }, [campers]);
 
+  /* grab Id of choosen camper first location.state.initialId then camper querry in link */
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const initialId = React.useMemo(() =>
@@ -150,21 +155,27 @@ function Rezerwacja()
     return m ? m.id : options[0]?.id;
   }, [location.state, searchParams, options])
 
+  /* make selected campers array, set initial camper */
   const [selectedCamperIds, setSelectedCamperIds] = React.useState(
-    options[0]?.id != null ? [options[0].id] : []
+    initialId != null
+      ? [initialId]
+      : options[0]?.id != null
+        ? [options[0].id]
+        : []
   );
   const [range, setRange] = React.useState(null); // null | Date | [Date, Date]
 
 
-
   // If camper changes, clear current range to avoid invalid selection
   React.useEffect(() => setRange(null), [selectedCamperIds]);
+
 
   const selectedCampers = React.useMemo(
     () => options.filter((o) => selectedCamperIds.includes(o.id)),
     [options, selectedCamperIds]
   );
 
+  // some weird calendar functions
   const bookedSet = React.useMemo(() =>
   {
     const s = new Set();
@@ -188,7 +199,7 @@ function Rezerwacja()
           <div className="flex flex-col">
             <h1 className="text-[25px] pt-2 font-bold tracking-[1.8px] text-center leading-4 whitespace-nowrap
         md:text-[36px] md:leading-8
-        lg:text-start">
+        lg:text-start lg:whitespace-normal">
           Rezerwacja przyczep
             </h1>
             <p className="text-[16px] leading-5 text-[rgb(0,108,228)] pt-4 underline
@@ -211,7 +222,6 @@ function Rezerwacja()
           <div className="flex flex-col flex-1 mt-6 lg:items-start lg:flex-none lg:!w-fit">
             <div className="rounded-xl overflow-hidden flex [@media(min-height:750px)]:flex-1 justify-center [@media(min-height:750px)]:!items-center md:min-h-0 md:mt-4">
               <ResponsiveCalendar
-                /* optional wrapper spacing */
                 className="mt-2l"
                 /* calendar props */
                 selectRange
@@ -227,6 +237,8 @@ function Rezerwacja()
                     return;
                   }
                   setRange(val);
+                  console.log("Selected Range:", range);
+                  console.log("Selected ids:", selectedCampers);
                 }}
                 minDate={today}
                 prev2Label={null}
@@ -235,15 +247,13 @@ function Rezerwacja()
                 tileClassName={({ date, view }) =>
                   view === "month" && bookedSet.has(key(date)) ? "rc-booked" : ""
                 }
-                /* optional: change when it becomes a sheet */
                 shortHeightQuery="(max-height: 760px)"
-                /* optional: auto-close sheet when range picked */
                 autoCloseOnRange
               />
             </div>
             <div className="flex flex-col gap-3 justify-between mt-auto lg:!max-w-[400px] lg:items-start">
-              <Summary range={range} />
-              <button className={` mx-4 p-4 py-5 ${getNights(range) > 0 ? "bg-[#ff6600]" : "bg-gray-200 opacity-70"} rounded-2xl
+              <Summary range={range} campers={selectedCampers} />
+              <button className={` mx-4 p-4 py-5 ${ selectedCampers.length === 0 ? "bg-gray-200 opacity-70" : getNights(range) > 0 ? "bg-[#ff6600]" : "bg-gray-200 opacity-70"} rounded-2xl
         shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)]
         text-center textborder font-body leading-[1px] tracking-[1.8px] text-white text-lg font-semibold  text-[14px]
         lg:text-[20px] flex justify-center mb-0.5 lg:ml-0 lg:w-[400px]`}>Zarezerwuj Przyczepę!</button>
@@ -328,8 +338,9 @@ function getNights(range)
   const [a, b] = range;
   return Math.max(0, Math.round((startOfDay(b) - startOfDay(a)) / 86400000));
 }
+
 /* summary component */
-function Summary({ range })
+function Summary({ range, campers  })
 {
   if (!Array.isArray(range) || !range[0] || !range[1])
   {
@@ -340,6 +351,10 @@ function Summary({ range })
     0,
     Math.round((startOfDay(b) - startOfDay(a)) / 86400000),
   );
+  if (campers.length === 0 )
+  {
+    return <div className="text-sm text-slate-500 mt-auto">Wybierz przyczepę…</div>;
+  }
   return (
     <div className="text-sm text-slate-700 leading-4">
       Od <b>{a.toLocaleDateString()}</b> do <b>{b.toLocaleDateString()}</b> —{" "}

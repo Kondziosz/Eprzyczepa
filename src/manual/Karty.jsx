@@ -172,12 +172,13 @@ function Karty()
 
               <div className="navigation-container ">
                 <div
-                  className="arrow arrow-left flex items-center translate-y-[-4px] lg:translate-y-0 lg:scale-x-250 lg:ml-8"
+                  className="arrow arrow-left flex items-center translate-y-[-4px] md:translate-y-0 md:scale-x-250 md:ml-8"
                   onClick={() => swiperRefs.current[idx]?.slidePrev()}
                 ></div>
                 <button
-                  className="bg-[#ff66009a] rounded-2xl shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)] px-2
-                 lg:px-8 lg:py-3 text-center font-body leading-[0.88] text-white text-lg font-semibold
+                  className="bg-[#ff66009a] rounded-2xl shadow-[12px_12px_24px_rgba(0,0,0,0.25),-12px_-12px_24px_rgba(255,255,255,0.6)]
+                  px-[18px] flex-none
+                 md:px-8 lg:py-3 text-center leading-[1.1] text-white text-lg font-semibold
                  textborder text-[14px] lg:text-[30px]"
                   onClick={() =>
                   {
@@ -185,10 +186,10 @@ function Karty()
                     navigate(`/rezerwacja?camper=${camper.id}`, { state: { initialId: camper.id } });
                   }}
                 >
-                  Sprawdź Dostępność
+                  Sprawdź <br className="md:hidden" />Dostępność
                 </button>
                 <div
-                  className="arrow arrow-right  flex items-center translate-y-[-4px] lg:translate-y-0 lg:scale-x-250 lg:mr-8"
+                  className="arrow arrow-right  flex items-center translate-y-[-4px] md:translate-y-0 md:scale-x-250 md:mr-8 "
                   onClick={() => swiperRefs.current[idx]?.slideNext()}
                 ></div>
               </div>
